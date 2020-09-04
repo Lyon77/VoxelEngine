@@ -1,6 +1,6 @@
 workspace "Voxel"
 	architecture "x86_64"
-	startproject "Voxel"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -40,8 +40,8 @@ project "Voxel"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	--pchheader "precompile.h"
-	--pchsource "Voxel/src/precompile.cpp"
+	pchheader "precompile.h"
+	pchsource "Voxel/src/precompile.cpp"
 
 	files
 	{
@@ -86,17 +86,17 @@ project "Voxel"
 		}
 
 	filter "configurations:Debug"
-		defines "MZ_DEBUG"
+		defines "DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "MZ_RELEASE"
+		defines "RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "MZ_DIST"
+		defines "DIST"
 		runtime "Release"
 		optimize "on"
 
@@ -121,7 +121,9 @@ project "Sandbox"
 		"Voxel/vendor/spdlog/include",
 		"Voxel/src",
 		"Voxel/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
@@ -133,16 +135,16 @@ project "Sandbox"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "MZ_DEBUG"
+		defines "DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "MZ_RELEASE"
+		defines "RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "MZ_DIST"
+		defines "DIST"
 		runtime "Release"
 		optimize "on"
