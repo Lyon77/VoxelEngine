@@ -39,15 +39,27 @@ namespace Voxel
 		// Render
 		Renderer::BeginScene(m_Camera, glm::mat4(1.0f));
 
-		Renderer::DrawQuad(glm::mat4(1.0f), glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
-		Renderer::DrawQuad(glm::translate(glm::mat4(1.0f), { 0.0f, 1.0f, 0.0f }), m_BaseTexture);
-		Renderer::DrawQuad(glm::translate(glm::mat4(1.0f), { 0.0f,-1.0f, 0.0f }), m_Dirt);
+		//Renderer::DrawQuad(glm::mat4(1.0f), glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
+		DrawCube(glm::translate(glm::mat4(1.0f), { 0.0f, 0.0f, 0.0f }), m_BaseTexture);
+		DrawCube(glm::translate(glm::mat4(1.0f), { 0.0f, 2.0f, 0.0f }), m_BaseTexture);
+		//Renderer::DrawQuad(glm::translate(glm::mat4(1.0f), { 0.0f,-1.0f, 0.0f }), m_Dirt);
 
 		Renderer::EndScene();
 	}
 
 	void ApplicationLayer::OnEvent(Event& e)
 	{
+	}
+
+	void ApplicationLayer::DrawCube(glm::mat4 transform, const Ref<Texture>& texture)
+	{
+		// Top, Bottom, Right, Left, Front, Back
+		Renderer::DrawQuad(glm::translate(transform, { 0.0f, 0.5f, 0.0f }) * glm::rotate(glm::mat4(1.0f), -glm::radians(90.0f), { 1.0f, 0.0f, 0.0f }), texture);
+		Renderer::DrawQuad(glm::translate(transform, { 0.0f,-0.5f, 0.0f }) * glm::rotate(glm::mat4(1.0f),  glm::radians(90.0f), { 1.0f, 0.0f, 0.0f }), texture);
+		Renderer::DrawQuad(glm::translate(transform, { 0.5f, 0.0f, 0.0f }) * glm::rotate(glm::mat4(1.0f),  glm::radians(90.0f), { 0.0f, 1.0f, 0.0f }), texture);
+		Renderer::DrawQuad(glm::translate(transform, {-0.5f, 0.0f, 0.0f }) * glm::rotate(glm::mat4(1.0f), -glm::radians(90.0f), { 0.0f, 1.0f, 0.0f }), texture);
+		Renderer::DrawQuad(glm::translate(transform, { 0.0f, 0.0f, 0.5f }) * glm::rotate(glm::mat4(1.0f),  glm::radians(0.0f), { 0.0f, 1.0f, 0.0f }), texture);
+		Renderer::DrawQuad(glm::translate(transform, { 0.0f, 0.0f,-0.5f }) * glm::rotate(glm::mat4(1.0f),  glm::radians(180.0f), { 0.0f, 1.0f, 0.0f }), texture);
 	}
 
 

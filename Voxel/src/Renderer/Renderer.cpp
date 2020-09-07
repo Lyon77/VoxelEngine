@@ -52,6 +52,8 @@ namespace Voxel
 
 		glEnable(GL_DEPTH_TEST);
 
+		glEnable(GL_CULL_FACE);
+
 		// VertexArray
 		s_Data.QuadVertexArray = CreateRef<VertexArray>();
 

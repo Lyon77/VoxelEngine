@@ -17,6 +17,9 @@ namespace Voxel
 		//virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
+		void DrawCube(glm::mat4 transform, const Ref<Texture>& texture);
+
+	private:
 		Camera m_Camera;
 
 		Ref<Texture> m_BaseTexture;

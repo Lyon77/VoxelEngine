@@ -16,13 +16,13 @@ namespace Voxel
 	Camera::Camera(const glm::mat4& projectionMatrix)
 		: m_ProjectionMatrix(projectionMatrix), m_ViewMatrix(glm::mat4(1.0f))
 	{
-		m_Position = { -5, 5, 5 };
+		m_Position = { 5, 5, -5 }; // FIX??
 		m_Rotation = glm::vec3(90.0f, 0.0f, 0.0f);
 
 		m_FocalPoint = glm::vec3(0.0f);
 		m_Distance = glm::distance(m_Position, m_FocalPoint);
 
-		m_Yaw = 3.0f * (float)PI / 4.0f;
+  		m_Yaw = 3.0f * (float)PI / 4.0f;
 		m_Pitch = PI / 4.0f;
 	}
 
@@ -56,6 +56,8 @@ namespace Voxel
 
 		m_ViewMatrix = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(orientation);
 		m_ViewMatrix = glm::inverse(m_ViewMatrix);
+
+		m_ViewMatrix = glm::lookAt(m_Position, m_Position + GetForwardDirection(), GetUpDirection());
 
 	}
 
