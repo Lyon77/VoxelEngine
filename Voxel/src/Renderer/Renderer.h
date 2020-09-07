@@ -10,9 +10,12 @@ namespace Voxel
 		static void Init();
 		static void Shutdown();
 
+		static void OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
+
 		static void BeginScene(const Camera& camera, glm::mat4 transform);
 		static void EndScene();
 		static void Flush();
+		static void Clear();
 
 		// Using Transforms instead of Vecs
 		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color);

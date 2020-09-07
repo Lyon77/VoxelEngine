@@ -117,12 +117,17 @@ namespace Voxel
 		delete[] s_Data.QuadVertexBufferBase;
 	}
 
+	void Renderer::OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	{
+		glViewport(x, y, width, height);
+	}
+
 	void Renderer::BeginScene(const Camera& camera, glm::mat4 transform)
 	{
 		//glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
 
 		s_Data.TextureAndColorShader->Bind();
-		s_Data.TextureAndColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data.TextureAndColorShader->SetMat4("u_ViewProjection", camera.GetProjectionMatrix() * camera.GetViewMatrix());
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
@@ -151,6 +156,12 @@ namespace Voxel
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		s_Data.Stats.DrawCalls++;
+	}
+
+	void Renderer::Clear()
+	{
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::FlushAndReset()

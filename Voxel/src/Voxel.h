@@ -2,11 +2,14 @@
 
 #include "Core/Core.h"
 
+#include "Core/Application.h"
+#include "Core/Layer.h"
 #include "Core/Log.h"
 #include "Core/Random.h"
 
 #include "Core/Timestep.h"
 
+#include "Core/Input.h"
 #include "Core/KeyCodes.h"
 #include "Core/MouseButtonCodes.h"
 

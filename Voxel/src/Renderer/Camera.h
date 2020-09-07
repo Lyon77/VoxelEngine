@@ -10,32 +10,55 @@ namespace Voxel
 	{
 	public:
 		Camera() = default;
-		Camera(const glm::mat4 projection)
-			: m_ProjectionMatrix(projection) {}
-		Camera(float left, float right, float bottom, float top);
+		Camera(const glm::mat4& projectionMatrix);
 
 		virtual ~Camera() = default;
 
-		void SetProjection(float left, float right, float bottom, float top);
+		void Focus();
+		void Update(Timestep ts);
 
-		const glm::vec3& GetPosition() const { return m_Position; }
-		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
+		inline float GetDistance() const { return m_Distance; }
+		inline void SetDistance(float distance) { m_Distance = distance; }
 
-		float GetRotation() const { return m_Rotation; }
-		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+		inline void SetProjectionMatrix(const glm::mat4& projectionMatrix) { m_ProjectionMatrix = projectionMatrix; }
+		inline void SetViewportSize(uint32_t width, uint32_t height) { m_ViewportWidth = width; m_ViewportHeight = height; }
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
-		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
+
+		glm::vec3 GetUpDirection();
+		glm::vec3 GetRightDirection();
+		glm::vec3 GetForwardDirection();
+		const glm::vec3& GetPosition() const { return m_Position; }
+		float GetExposure() const { return m_Exposure; }
+		float& GetExposure() { return m_Exposure; }
+
 	private:
-		void RecalculateViewMatrix();
+		void MousePan(const glm::vec2& delta);
+		void MouseRotate(const glm::vec2& delta);
+		void MouseZoom(float delta);
+
+		glm::vec3 CalculatePosition();
+		glm::quat GetOrientation();
+
+		std::pair<float, float> PanSpeed() const;
+		float RotationSpeed() const;
+		float ZoomSpeed() const;
 
 	protected:
-		glm::mat4 m_ProjectionMatrix;
-		glm::mat4 m_ViewMatrix;
-		glm::mat4 m_ViewProjectionMatrix;
+		glm::mat4 m_ProjectionMatrix, m_ViewMatrix;
+		glm::vec3 m_Position, m_Rotation, m_FocalPoint;
 
-		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		float m_Rotation = 0.0f;
+		bool m_Panning, m_Rotating;
+		glm::vec2 m_InitialMousePosition;
+		glm::vec3 m_InitialFocalPoint, m_InitialRotation;
+
+		float m_Distance;
+
+		float m_Pitch, m_Yaw;
+
+		float m_Exposure = 0.8f;
+
+		uint32_t m_ViewportWidth = 1280, m_ViewportHeight = 720;
 	};
 }
