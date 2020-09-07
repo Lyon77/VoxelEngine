@@ -19,6 +19,9 @@ namespace Voxel
 
 	void ApplicationLayer::OnAttach()
 	{
+		m_BaseTexture = CreateRef<Texture>("assets/textures/Checkerboard.png");
+		m_SpriteSheet = CreateRef<Texture>("assets/textures/farm.png");
+		m_Dirt = SubTexture::CreateFromCoords(m_SpriteSheet, { 6, 11 }, { 128, 128 });
 	}
 
 	void ApplicationLayer::OnDetach()
@@ -36,7 +39,9 @@ namespace Voxel
 		// Render
 		Renderer::BeginScene(m_Camera, glm::mat4(1.0f));
 
-		Renderer::DrawQuad(glm::mat4(1.0f), glm::vec4(1.0f));
+		Renderer::DrawQuad(glm::mat4(1.0f), glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
+		Renderer::DrawQuad(glm::translate(glm::mat4(1.0f), { 0.0f, 1.0f, 0.0f }), m_BaseTexture);
+		Renderer::DrawQuad(glm::translate(glm::mat4(1.0f), { 0.0f,-1.0f, 0.0f }), m_Dirt);
 
 		Renderer::EndScene();
 	}

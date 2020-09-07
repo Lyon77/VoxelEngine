@@ -18,5 +18,9 @@ namespace Voxel
 		void OnEvent(Event& e) override;
 	private:
 		Camera m_Camera;
+
+		Ref<Texture> m_BaseTexture;
+		Ref<Texture> m_SpriteSheet;
+		Ref<SubTexture> m_Dirt;
 	};
 }
