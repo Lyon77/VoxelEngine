@@ -16,7 +16,7 @@ namespace Voxel
 		static void BeginScene(const Camera& camera, glm::mat4 transform);
 		static void EndScene();
 		static void Flush();
-		static void Clear();
+		static void Clear(glm::vec4 color);
 
 		// Using Transforms instead of Vecs
 		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color);

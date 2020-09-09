@@ -160,9 +160,9 @@ namespace Voxel
 		s_Data.Stats.DrawCalls++;
 	}
 
-	void Renderer::Clear()
+	void Renderer::Clear(glm::vec4 color)
 	{
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(color[0], color[1], color[2], color[3]);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 

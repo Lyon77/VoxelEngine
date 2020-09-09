@@ -16,7 +16,7 @@ namespace Voxel
 	Camera::Camera(const glm::mat4& projectionMatrix)
 		: m_ProjectionMatrix(projectionMatrix), m_ViewMatrix(glm::mat4(1.0f))
 	{
-		m_Position = { 5, 5, -5 }; // FIX??
+		m_Position = { 10, 10, 10 }; // FIX??
 		m_Rotation = glm::vec3(90.0f, 0.0f, 0.0f);
 
 		m_FocalPoint = glm::vec3(0.0f);

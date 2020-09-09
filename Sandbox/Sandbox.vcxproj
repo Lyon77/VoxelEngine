@@ -136,9 +136,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ApplicationLayer.h" />
+    <ClInclude Include="src\ChunkData\Block.h" />
+    <ClInclude Include="src\ChunkData\Chunk.h" />
+    <ClInclude Include="src\ChunkData\ChunkManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ApplcationLayer.cpp" />
+    <ClCompile Include="src\ChunkData\Chunk.cpp" />
+    <ClCompile Include="src\ChunkData\ChunkManager.cpp" />
     <ClCompile Include="src\Sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
