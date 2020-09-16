@@ -12,27 +12,27 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "Coordinate.h"
+
 namespace Voxel
 {
 	class Chunk
 	{
 	public:
-		Chunk();
+		Chunk(const ChunkPosition& position);
 		~Chunk();
 
-		void Update(Timestep ts);
+		uint8_t GetBlock(const BlockPosition& position);
+		void SetBlock(const BlockPosition& position, uint8_t type);
+		bool IsSurrounded(const BlockPosition& position);
 
 		void Render();
-
-		static const int CHUNK_SIZE = 16;
-
 	private:
 		void CreateMesh(glm::mat4 transform);
-		void CreateCube(glm::mat4 transform);
 
 	private:
-		Block*** m_PBlocks;
+		uint8_t*** m_PBlocks;
 
-		int m_XPos, m_YPos;
+		ChunkPosition m_Position;
 	};
 }
