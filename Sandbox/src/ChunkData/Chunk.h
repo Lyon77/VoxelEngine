@@ -22,16 +22,20 @@ namespace Voxel
 		Chunk(const ChunkPosition& position);
 		~Chunk();
 
+		ChunkPosition GetPosition() { return m_Position; }
+
 		uint8_t GetBlock(const BlockPosition& position);
 		void SetBlock(const BlockPosition& position, uint8_t type);
 		bool IsSurrounded(const BlockPosition& position);
+
+		void Fill(uint8_t value) { m_Blocks.fill(value); }
 
 		void Render();
 	private:
 		void CreateMesh(glm::mat4 transform);
 
 	private:
-		uint8_t*** m_PBlocks;
+		std::array<uint8_t, CHUNK_VOLUME> m_Blocks{ 1 };
 
 		ChunkPosition m_Position;
 	};

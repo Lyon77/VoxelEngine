@@ -7,6 +7,9 @@ namespace Voxel
 	static const int CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE;
 	static const int CHUNK_VOLUME = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE;
 
+	constexpr int TEMP_WORLD_HEIGHT = 4;
+	constexpr int TEMP_WORLD_SIZE = 12;
+
 	using BlockPosition = glm::vec3;
 	using ChunkPosition = glm::vec3;
 

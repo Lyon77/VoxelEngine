@@ -9,6 +9,8 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "ChunkData/TerrainGen.h"
+
 namespace Voxel
 {
 	ApplicationLayer::ApplicationLayer()
@@ -16,6 +18,7 @@ namespace Voxel
 	{
 		new BlockManager();
 		m_Chunk = CreateRef<Chunk>(glm::vec3(0.0f));
+		makeStepTerrain(m_Chunk.get());
 	}
 
 	void ApplicationLayer::OnAttach()
@@ -30,7 +33,7 @@ namespace Voxel
 	{
 		// Update
 		m_Camera.Update(ts);
-		m_Chunk->Update(ts);
+		//m_Chunk->Update(ts);
 
 		// Clear
 		Renderer::Clear(glm::vec4(0.6f, 0.6f, 1.0f, 1.0f));

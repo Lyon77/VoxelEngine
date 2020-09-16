@@ -5,45 +5,15 @@ namespace Voxel
 	Chunk::Chunk(const ChunkPosition& position)
 		: m_Position(position)
 	{
-		m_PBlocks = new uint8_t**[CHUNK_SIZE];
-		
-		for (int i = 0; i < CHUNK_SIZE; i++)
-		{
-			m_PBlocks[i] = new uint8_t *[CHUNK_SIZE];
-			
-			for (int j = 0; j < CHUNK_SIZE; j++)
-			{
-				m_PBlocks[i][j] = new uint8_t[CHUNK_SIZE];
-				for (int k = 0; k < CHUNK_SIZE; k++)
-				{
-					m_PBlocks[i][j][k] = 6;
-				}
-			}
-		}
 	}
 
 	Chunk::~Chunk()
 	{
-		for (int i = 0; i < CHUNK_SIZE; i++)
-		{
-			for (int j = 0; j < CHUNK_SIZE; j++)
-			{
-				delete [] m_PBlocks[i][j];
-			}
-
-			delete[] m_PBlocks[i];
-		}
-
-		delete[] m_PBlocks;
 	}
 
 	uint8_t Chunk::GetBlock(const BlockPosition& position)
 	{
-		int x = position.x;
-		int y = position.y;
-		int z = position.z;
-
-		return m_PBlocks[x][y][z];
+		return m_Blocks.at(toLocalBlockIndex(position));
 	}
 
 	void Chunk::SetBlock(const BlockPosition& position, uint8_t type)
@@ -52,7 +22,7 @@ namespace Voxel
 		int y = position.y;
 		int z = position.z;
 
-		m_PBlocks[x][y][z] = type;
+		m_Blocks.at(toLocalBlockIndex(position)) = type;
 	}
 
 	bool Chunk::IsSurrounded(const BlockPosition& position)
@@ -62,12 +32,12 @@ namespace Voxel
 		int z = position.z;
 
 		// Check Surrounding blocks
-		return (!((x == CHUNK_SIZE - 1 || !m_PBlocks[x + 1][y][z] != 0)
-			|| (x == 0 || !m_PBlocks[x - 1][y][z] != 0)
-			|| (y == CHUNK_SIZE - 1 || !m_PBlocks[x][y + 1][z] != 0)
-			|| (y == 0 || !m_PBlocks[x][y - 1][z] != 0)
-			|| (z == CHUNK_SIZE - 1 || !m_PBlocks[x][y][z + 1] != 0)
-			|| (z == 0 || !m_PBlocks[x][y][z - 1] != 0)));
+		return (!((x == CHUNK_SIZE - 1 || !m_Blocks.at(toLocalBlockIndex({ (x + 1), y, z })) != 0)
+			|| (x == 0 || !m_Blocks.at(toLocalBlockIndex({ (x - 1), y, z })) != 0)
+			|| (y == CHUNK_SIZE - 1 || !m_Blocks.at(toLocalBlockIndex({ x, (y + 1), z })) != 0)
+			|| (y == 0 || !m_Blocks.at(toLocalBlockIndex({ x, (y - 1), z })) != 0)
+			|| (z == CHUNK_SIZE - 1 || !m_Blocks.at(toLocalBlockIndex({ x, y, (z + 1) })) != 0)
+			|| (z == 0 || !m_Blocks.at(toLocalBlockIndex({ x, y, (z - 1) })) != 0)));
 	}
 
 	void Chunk::Render()
@@ -85,9 +55,9 @@ namespace Voxel
 			{
 				for (int z = 0; z < CHUNK_SIZE; z++)
 				{
-					if (m_PBlocks[x][y][z] != 0 && !IsSurrounded({ x, y, z }))
+					if (m_Blocks.at(toLocalBlockIndex({x, y, z})) != 0 && !IsSurrounded({ x, y, z }))
 					{
-						manager.Render((BlockType)m_PBlocks[x][y][z], glm::translate(transform, { x, y, z }));
+						manager.Render((BlockType)m_Blocks.at(toLocalBlockIndex({ x, y, z })), glm::translate(transform, { x, y, z }));
 					}
 				}
 			}

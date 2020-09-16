@@ -140,6 +140,7 @@
     <ClInclude Include="src\ChunkData\Chunk.h" />
     <ClInclude Include="src\ChunkData\ChunkManager.h" />
     <ClInclude Include="src\ChunkData\Coordinate.h" />
+    <ClInclude Include="src\ChunkData\TerrainGen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ApplcationLayer.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="src\ChunkData\Chunk.cpp" />
     <ClCompile Include="src\ChunkData\ChunkManager.cpp" />
     <ClCompile Include="src\ChunkData\Coordinate.cpp" />
+    <ClCompile Include="src\ChunkData\TerrainGen.cpp" />
     <ClCompile Include="src\Sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
